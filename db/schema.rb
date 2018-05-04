@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504115327) do
+ActiveRecord::Schema.define(version: 20180504125422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,41 @@ ActiveRecord::Schema.define(version: 20180504115327) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "variant_id"
+    t.integer "shopify_product_id"
+    t.integer "shopify_variant_id"
+    t.float "unit_price"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["shopify_variant_id"], name: "index_order_items_on_shopify_variant_id"
+    t.index ["variant_id"], name: "index_order_items_on_variant_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "number"
+    t.string "email"
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "shopify_order_id"
+    t.datetime "order_date"
+    t.float "total"
+    t.integer "line_item_count"
+    t.string "financial_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.bigint "shopify_product_id"
     t.datetime "last_shopify_sync"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "acount_id"
   end
 
   create_table "variants", force: :cascade do |t|
