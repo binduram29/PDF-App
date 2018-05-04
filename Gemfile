@@ -8,6 +8,7 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.6'
+ruby '2.4.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -19,6 +20,20 @@ gem 'uglifier', '>= 1.3.0'
 gem "execjs"
 gem "twitter-bootstrap-rails"
 gem "bootstrap-sass"
+
+gem "better_errors" # improves error handling
+gem "binding_of_caller" # used by better errors
+
+gem 'rspec-rails' # testing framework
+gem "factory_girl_rails" # use factories, not fixtures
+#gem "capybara" # simulate browser activity
+gem "fakeweb"
+
+# Automated testing
+gem 'guard' # automated execution of test suite upon change
+gem "guard-rspec" # guard integration with rspec
+# Only install the rb-fsevent gem if on Max OSX
+gem 'rb-fsevent' # used for Growl notifications
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
