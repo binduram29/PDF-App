@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504065649) do
+ActiveRecord::Schema.define(version: 20180504115327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,29 @@ ActiveRecord::Schema.define(version: 20180504065649) do
     t.string "shopify_shared_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.bigint "shopify_product_id"
+    t.datetime "last_shopify_sync"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "variants", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "shopify_variant_id"
+    t.string "option1"
+    t.string "option2"
+    t.string "option3"
+    t.string "sku"
+    t.string "barcode"
+    t.float "price"
+    t.datetime "last_shopify_sync"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
 end

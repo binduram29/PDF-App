@@ -48,9 +48,12 @@
         <a class="navbar-brand" href="#">PdfApp</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
+            <li><%= link_to "Products", products_path  %></li>
+            <li><%= link_to "Accounts", accounts_path  %></li>
+          </ul>
+          <ul class="nav">
+            <li><%#= link_to "Products", products_path %></li>
+            <li><%#= link_to "Accounts", accounts_path %></li>
           </ul>
         </div>
       </div>
@@ -64,11 +67,7 @@
         </div>
       </div><!--/row-->
       <a class="brand" href="/">Contestapp</a>
-      <div class="container-fluid nav-collapse">
-        <ul class="nav">
-          <li><%= link_to "Accounts", accounts_path%></li>
-        </ul>
-      </div><!--/.nav-collapse -->
+      
 
       <footer>
         <p>&copy; Company 2018</p>

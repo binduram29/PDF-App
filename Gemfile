@@ -29,6 +29,7 @@ gem 'rspec-rails' # testing framework
 #gem "capybara" # simulate browser activity
 #gem "fakeweb"
 gem 'shopify_api'
+gem 'pry'
 
 # Automated testing
 gem 'guard' # automated execution of test suite upon change

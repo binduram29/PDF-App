@@ -5,6 +5,8 @@ class ShopifyIntegration
   attr_accessor :url, :password, :account_id
 
   def initialize(params)
+    params[:account_id] = 1
+    #binding.pry
     # Ensure that all the parameters are passed in
     %w{url password account_id}.each do |field|
       raise ArgumentError.new("params[:#{field}] is required") if params[field.to_sym].blank?
@@ -174,8 +176,7 @@ class ShopifyIntegration
           # Otherwise, create it
           product = Product.new(last_shopify_sync: DateTime.now,
                                 name: shopify_product.title,
-                                shopify_product_id: shopify_product.id,
-                                account_id: @account_id
+                                shopify_product_id: shopify_product.id
                                 )
           unless product.save
             failed += 1
