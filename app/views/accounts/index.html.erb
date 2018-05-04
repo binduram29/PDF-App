@@ -15,6 +15,7 @@
     </tr>
   </thead>
   <tbody>
+    <% if @accounts.present? %>
     <% @accounts.each do |account| %>
       <tr>
         <td><%= link_to account.id, account_path(account) %></td>
@@ -35,6 +36,7 @@
                       :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
