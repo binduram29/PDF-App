@@ -2,7 +2,7 @@
 	<h4>New Contest</h4>
 	<p>Use the form below to run a new Contest. Fields marked
 	with * are required.</p>
-	<form>
+	<form action="<%= create_contest_path %>" method='post'>
 		<div class="control-group">
 			<label for="name">Contest Name *</label>
 			<div class="controls">
@@ -12,10 +12,10 @@
 		<div class="control-group">
 			<label for="name">Type *</label>
 			<div class="controls">
-				<select id="product" name="product" required>
+				<select id="product_id" name="product_id" required>
 					<option>Any Product</option>
 					<optgroup label="Specific Product">
-						<option>Product A</option>
+						<option >Product A</option>
 						<option>Product B</option>
 					</optgroup>
 				</select>
@@ -24,14 +24,20 @@
 		<div class="control-group">
 			<label for="name">Order Date Range (optional)</label>
 			<div class="controls">
-				<input type="text" class="text_field" id="from-date" name="from-date"/> to
-				<input type="text" class="text_field" id="to-date" name="to-date"/>
+				<input type="text" class="text_field" id="start_date" name="start_date"/> to
+				<input type="text" class="text_field" id="end_date" name="end_date"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label for="name">Max # (optional)</label>
 			<div class="controls">
-				<input type="text" class="text_field" id="limit" name="limit"/>
+				<input type="text" class="text_field" id="max_results" name="max_results"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="name">Order (optional)</label>
+			<div class="controls">
+				<input type="text" class="text_field" id="order_id" name="order_id"/>
 			</div>
 		</div>
 		<div class="form-actions">

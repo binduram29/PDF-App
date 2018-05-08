@@ -101,31 +101,32 @@ class ShopifyIntegration
 
         # See if we've already imported the order
         order = Order.find_by_shopify_order_id(shopify_order.id)
+        @account_id = 1
 
         unless order.present?
+          binding.pry
 
           # If not already imported, create a new order
           order = Order.new(number: shopify_order.name,
                             email: shopify_order.email,
-                            first_name: shopify_order.billing_address.first_name,
-                            last_name: shopify_order.billing_address.last_name,
+                            first_name: "test name",
+                            last_name: "test last name",
                             shopify_order_id: shopify_order.id,
                             order_date: shopify_order.created_at,
                             total: shopify_order.total_price,
-                            financial_status: shopify_order.financial_status,
-                            account_id: @account_id
+                            financial_status: shopify_order.financial_status
                             )
 
           # Iterate through the line_items
           shopify_order.line_items.each do |line_item|
             variant = Variant.find_by_shopify_variant_id(line_item.variant_id)
-            if variant.present?
-              order.order_items.build(variant_id: variant.id,
-                                      shopify_product_id: line_item.product_id,
-                                      shopify_variant_id: line_item.id,
-                                      quantity:  line_item.quantity,
-                                      unit_price: line_item.price)
-            end
+            # if variant.present?
+            #   order.order_items.build(variant_id: variant.id,
+            #                           shopify_product_id: line_item.product_id,
+            #                           shopify_variant_id: line_item.id,
+            #                           quantity:  line_item.quantity,
+            #                           unit_price: line_item.price)
+            # end
           end
 
           if order.save

@@ -10,18 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504133023) do
+ActiveRecord::Schema.define(version: 20180508113002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
     t.string "shopify_account_url"
-    t.string "shopify_api_key"
     t.string "shopify_password"
-    t.string "shopify_shared_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "shopify_shop_id"
+    t.string "shopify_shop_name"
+    t.string "shop_owner"
+    t.string "email"
+    t.index ["email"], name: "index_accounts_on_email"
+    t.index ["shopify_account_url"], name: "index_accounts_on_shopify_account_url"
   end
 
   create_table "contests", force: :cascade do |t|
@@ -55,10 +59,10 @@ ActiveRecord::Schema.define(version: 20180504133023) do
     t.string "email"
     t.string "first_name"
     t.string "last_name"
-    t.integer "shopify_order_id"
+    t.bigint "shopify_order_id"
     t.datetime "order_date"
     t.float "total"
-    t.integer "line_item_count"
+    t.bigint "line_item_count"
     t.string "financial_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

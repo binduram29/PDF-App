@@ -11,9 +11,7 @@ class DashboardController < ApplicationController
 	def create_contest
 		@contest = Contest.new(contest_params)
 		# Store the name of the product for easier readability
-		@contest.product_name = Product.find_by_shopify_product_
-		id(contest_params[:product_id]).try(:name) if contest_
-		params[:product_id].present?
+		@contest.product_name = Product.find_by_shopify_product_id(contest_params[:product_id]).try(:name) if contest_params[:product_id].present?
 		respond_to do |format|
 		  if @contest.save
 			# Pick a winner
@@ -32,6 +30,7 @@ class DashboardController < ApplicationController
 	end
 	private
 	def contest_params
-		params.require(:contest).permit(:name, :product_id, :start_date, :end_date, :max_results, :order_id)
+		binding.pry
+		params.permit(:data)
 	end
 end

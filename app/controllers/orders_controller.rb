@@ -61,6 +61,36 @@ class OrdersController < ApplicationController
     end
   end
 
+   # GET /orders/import
+  # GET /orders/import.json
+  def import
+    account = Account.first
+
+    # Connect to Shopify
+    shopify_integration = ShopifyIntegration.new(api_key: account.shopify_api_key,
+    shared_secret: account.shopify_shared_secret,
+    url: account.shopify_account_url,
+    # account_id: 1,
+    password: account.shopify_password)
+    # url: current_account.shopify_account_url,
+    # password: current_account.shopify_password,
+    # account_id: current_account.id
+
+    respond_to do |format|
+      if shopify_integration.connect
+        # Import Products to ensure we are up to date
+        # shopify_integration.import_products
+        result = shopify_integration.import_orders
+        format.html { redirect_to ({action: :index}), notice: "#{result[:created].to_i} created, #{result[:failed]} failed." }
+        format.json { render json: "#{result[:created].to_i} created, #{result[:failed]} failed." }
+      else
+        format.html { redirect_to ({action: :index}), alert: "Unable to connect to Shopify" }
+        format.json { render json: "Unable to connect to Shopify", status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
