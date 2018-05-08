@@ -1,7 +1,62 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
-<%- content_for :sidebar do-%>
-<h4>Welcome!</h4>
-<p>This is the Dashboard for your account. You'll be able to
-view past contest results, as well as create new ones.</p>
+<%- content_for :sidebar do -%>
+	<h4>New Contest</h4>
+	<p>Use the form below to run a new Contest. Fields marked
+	with * are required.</p>
+	<form>
+		<div class="control-group">
+			<label for="name">Contest Name *</label>
+			<div class="controls">
+				<input type="text" class="text_field" id="name" class="name" required/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="name">Type *</label>
+			<div class="controls">
+				<select id="product" name="product" required>
+					<option>Any Product</option>
+					<optgroup label="Specific Product">
+						<option>Product A</option>
+						<option>Product B</option>
+					</optgroup>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="name">Order Date Range (optional)</label>
+			<div class="controls">
+				<input type="text" class="text_field" id="from-date" name="from-date"/> to
+				<input type="text" class="text_field" id="to-date" name="to-date"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="name">Max # (optional)</label>
+			<div class="controls">
+				<input type="text" class="text_field" id="limit" name="limit"/>
+			</div>
+		</div>
+		<div class="form-actions">
+			<input type="submit" value="Submit" class="btn"/>
+			<%= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_index_path , :class => 'btn' %>
+		</div>
+	</form>
 <%- end -%>
+<h1>Contests</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+		<th>Name</th>
+		<th>Criteria</th>
+		<th>Winner</th>
+		<th>Date</th>
+	</tr>
+  </thead>
+  <tbody>
+    <tr>
+		<td>Customer Appreciation Giveaway</td>
+		<td>Purchase made within last 30 days</td>
+		<td>Order #1010, John Doe</td>
+		<td>October 22, 2013</td>
+	</tr>
+  </tbody>
+</table>
+2.	 Next, we'll copy the

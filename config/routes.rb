@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 	end
 	end
   get 'dashboard/index'
+  post "create_contest" => 'dashboard#create_contest'
   root 'dashboard#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
