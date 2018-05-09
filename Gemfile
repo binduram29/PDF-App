@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 gem "execjs"
 gem "twitter-bootstrap-rails"
 gem "bootstrap-sass"
+gem 'shopify_app'
 
 gem "better_errors" # improves error handling
 gem "binding_of_caller" # used by better errors

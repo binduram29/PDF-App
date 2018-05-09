@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ShopifyApp::Engine, at: '/'
  get "account"=> 'accounts#edit'
    patch "account"=> 'accounts#update'
    put "account"=> 'accounts#update'
