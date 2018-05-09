@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-	has_many :order_itemss
+	has_many :order_items
+	belongs_to :account
 
 	# This method constructs the query based on
 	# the passed-in parameters

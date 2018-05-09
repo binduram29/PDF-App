@@ -2,49 +2,17 @@
 	<h4>New Contest</h4>
 	<p>Use the form below to run a new Contest. Fields marked
 	with * are required.</p>
-	<form action="<%= create_contest_path %>" method='post'>
-		<div class="control-group">
-			<label for="name">Contest Name *</label>
-			<div class="controls">
-				<input type="text" class="text_field" id="name" class="name" required/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="name">Type *</label>
-			<div class="controls">
-				<select id="product_id" name="product_id" required>
-					<option>Any Product</option>
-					<optgroup label="Specific Product">
-						<option >Product A</option>
-						<option>Product B</option>
-					</optgroup>
-				</select>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="name">Order Date Range (optional)</label>
-			<div class="controls">
-				<input type="text" class="text_field" id="start_date" name="start_date"/> to
-				<input type="text" class="text_field" id="end_date" name="end_date"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="name">Max # (optional)</label>
-			<div class="controls">
-				<input type="text" class="text_field" id="max_results" name="max_results"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="name">Order (optional)</label>
-			<div class="controls">
-				<input type="text" class="text_field" id="order_id" name="order_id"/>
-			</div>
-		</div>
-		<div class="form-actions">
-			<input type="submit" value="Submit" class="btn"/>
-			<%= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_index_path , :class => 'btn' %>
-		</div>
-	</form>
+	<%= form_for :contest, :url => { :controller => 'dashboard', :action => "create_contest" }  do |f| %>
+	  Name: <%= f.text_field :name %><br />
+	  First name: <%#= f.text_field :first_name %><br />
+	  Last name : <%#= f.text_field :last_name %><br />
+	  Start Date : <%= f.text_field :start_date %><br />
+	  End Date    : <%= f.text_field :end_date %><br />
+	  Max Results    : <%= f.text_field :max_results %><br />
+	  Order Id   : <%= f.text_field :order_id %><br />
+	  Product Id   : <%= f.text_field :product_id %><br />
+	  <%= f.submit %>
+	<% end %>
 <%- end -%>
 <h1>Contests</h1>
 <table class="table table-striped">

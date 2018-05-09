@@ -39,6 +39,19 @@
   <body>
 
     <div class="navbar navbar-default navbar-static-top">
+      <div class="navbar navbar-fluid-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="brand" href="/">Contest App</a>
+            <% if logged_in? %>
+              <%= link_to "Products", products_path %>
+              <%= link_to "Orders", orders_path %>
+              <%= link_to "Logout", sessions_destroy_path %>
+            <% end %>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
       <div class="container">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="icon-bar"></span>
@@ -48,8 +61,8 @@
         <a class="navbar-brand" href="#">PdfApp</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Products", products_path %></li>
-            <li><%= link_to "Orders", orders_path %></li>
+            <!-- <li><%#= link_to "Products", products_path %></li>
+            <li><%#= link_to "Orders", orders_path %></li> -->
             <li><%#= link_to "Accounts", accounts_path %></li>
           </ul>
           <ul class="nav">

@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = current_account.products.all
   end
 
   # GET /products/1
@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = current_account.products.new
   end
 
   # GET /products/1/edit
@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = current_account.products.new(product_params)
 
     respond_to do |format|
       if @product.save
@@ -71,7 +71,8 @@ class ProductsController < ApplicationController
                           api_key: account.shopify_api_key,
                           shared_secret: account.shopify_shared_secret,
                           url: account.shopify_account_url,
-                          password: account.shopify_password)
+                          password: account.shopify_password,
+                          account_id: current_account.id)
     respond_to do |format|
       shopify_integration.connect
       result = shopify_integration.import_products
@@ -84,7 +85,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = current_account.products.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
