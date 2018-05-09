@@ -13,7 +13,7 @@ class ShopifyController < ApplicationController
 
     # Redirect to the authorization page
     binding.pry
-    redirect_to "https://#{params[:shop].gsub(".myshopify.com","")}.myshopify.com/admin/oauth/authorize?client_id=#{ENV['SHOPIFY_API_KEY']}&scope=read_products,read_orders,read_customers"
+    redirect_to "https://#{params[:shop].gsub(".myshopify.com","")}.myshopify.com/admin/oauth/authorize?client_id=#{ENV['SHOPIFY_API_KEY']}&redirect_uri=https://#{params[:shop].gsub(".myshopify.com","")}.myshopify.com/auth/shopify/callback&scope=read_products,read_orders,read_customers"
 
   end
 
@@ -55,7 +55,10 @@ class ShopifyController < ApplicationController
       login(account.id)
 
       # Use our new credentials to grab account information
-      shopify_service = ShopifyIntegration.new(url: account.shopify_account_url, password: account.shopify_password, account_id: account.id)
+      shopify_service = ShopifyIntegration.new(
+                        url: account.shopify_account_url, 
+                        password: account.shopify_password, 
+                        account_id: account.id)
       shopify_service.connect
       shopify_service.update_account
       shopify_service.setup_webhooks

@@ -5,6 +5,7 @@ class Order < ApplicationRecord
 	# This method constructs the query based on
 	# the passed-in parameters
 	def self.candidate_list(params={})
+		#binding.pry
 		params[:order] ||= "order_date asc"
 		orders = order(params[:order]).includes(:order_items)
 		if params[:limit].present?
