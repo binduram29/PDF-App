@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508115058) do
+ActiveRecord::Schema.define(version: 20180510051608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180508115058) do
     t.string "shopify_shop_name"
     t.string "shop_owner"
     t.string "email"
+    t.boolean "paid"
     t.index ["email"], name: "index_accounts_on_email"
     t.index ["shopify_account_url"], name: "index_accounts_on_shopify_account_url"
   end
@@ -78,9 +79,16 @@ ActiveRecord::Schema.define(version: 20180508115058) do
     t.datetime "last_shopify_sync"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "acount_id"
     t.integer "account_id"
     t.index ["account_id"], name: "index_products_on_account_id"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "shopify_domain", null: false
+    t.string "shopify_token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
   create_table "variants", force: :cascade do |t|

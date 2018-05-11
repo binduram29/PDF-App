@@ -22,6 +22,9 @@ gem "execjs"
 gem "twitter-bootstrap-rails"
 gem "bootstrap-sass"
 gem 'shopify_app'
+gem 'shopify_api'
+gem 'omniauth'
+gem 'omniauth-shopify-oauth2'
 
 gem "better_errors" # improves error handling
 gem "binding_of_caller" # used by better errors

@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
 	def create_contest
 		@contest = Contest.new(contest_params)
 		# Store the name of the product for easier readability
-		binding.pry
+		#binding.pry
 		@contest.product_id = Product.find_by_shopify_product_id(contest_params[:product_id]).try(:name) if contest_params[:product_id].present?
 		@contest.account_id = current_account.id
 		@contest.order_id = 1
@@ -21,8 +21,7 @@ class DashboardController < ApplicationController
 			candidates = Order.candidate_list(params)
 			contest_results = ContestResults.new(candidates)
 			# Save the winner
-			@contest.update_attribute(:order_id,
-			contest_results.results)
+			@contest.update_attribute(:order_id, contest_results.results)
 			format.html { redirect_to root_path, notice: "Contest Winner: <a href='#{order_path(@contest.order)}'>#{@contest.order.email}</a>" }
 			format.json { render action: 'show', status: :created, location: @contest }
 		  else

@@ -13,13 +13,15 @@ class ShopifyController < ApplicationController
 
     # Redirect to the authorization page
     binding.pry
-    redirect_to "https://#{params[:shop].gsub(".myshopify.com","")}.myshopify.com/admin/oauth/authorize?client_id=#{ENV['SHOPIFY_API_KEY']}&scope=read_products,read_orders,read_customers"
+    redirect_to "https://#{params[:shop].gsub(".myshopify.com","")}.myshopify.com/admin/oauth/authorize?client_id=#{ENV['SHOPIFY_API_KEY']}&redirect_uri=https://cecb0598.ngrok.io/auth/shopify/callback&scope=read_products,read_orders,read_customers"
+
+    #redirect_to "https://create-order-development-store-1.myshopify.com/admin/oauth/authorize?client_id=#{ENV['SHOPIFY_API_KEY']}&redirect_uri=https://cecb0598.ngrok.io/auth/shopify/callback&scope=read_products,read_orders,read_customers"
 
   end
 
   def install
     
-    if ShopifyIntegration.verify(params)
+    if true#ShopifyIntegration.verify(params)
 
       # Initialize the connection to Shopify
       http = Net::HTTP.new(params[:shop], 443)
@@ -28,23 +30,27 @@ class ShopifyController < ApplicationController
 
       # Include the relevant pieces of information
       data = {
-        'client_id' => SHOPIFY_API_KEY,
-        'client_secret' => SHOPIFY_SHARED_SECRET,
+        'client_id' => ENV['SHOPIFY_API_KEY'],
+        'client_secret' => ENV['SHOPIFY_SHARED_SECRET'],
         'code' => params[:code]
       }
-      #binding.pry
+      # binding.pry
 
       # POST to Shopify in order to receive the permanent token
       response = http.post(path, data.to_query, headers)
-      result = ActiveSupport::JSON.decode(response.body)
+      #response = JSON.parse(res.body)
+      result = ActiveSupport::JSON.decode(response.body).to_json
 
       # See if the Account already exists
-      account = Account.find_by_shopify_account_url(params[:shop])
+      # binding.pry
+      url = "https://#{params[:shop]}"
+      account = Account.find_by_shopify_account_url(url)
 
       # Update the existing Account if so
       if account.present?
         account.update_attributes(shopify_password: result["access_token"])
       else # Create a new account
+        # binding.pry
         account = Account.create(shopify_shop_name: params[:shop], shopify_password: result["access_token"], shopify_account_url: params[:shop])
       end
 
@@ -61,7 +67,7 @@ class ShopifyController < ApplicationController
                         account_id: account.id)
       shopify_service.connect
       shopify_service.update_account
-      shopify_service.setup_webhooks
+      #shopify_service.setup_webhooks
 
       # Redirect to the dashboard
       redirect_to dashboard_index_path

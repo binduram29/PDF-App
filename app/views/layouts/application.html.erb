@@ -46,6 +46,7 @@
             <% if logged_in? %>
               <%= link_to "Products", products_path %>
               <%= link_to "Orders", orders_path %>
+              <%= link_to "My Account", edit_account_path(current_account) %>
               <%= link_to "Logout", sessions_destroy_path %>
             <% end %>
           </div><!--/.nav-collapse -->

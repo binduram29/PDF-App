@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  #root :to => 'home#index'
+  get "account"=> 'accounts#edit'
+  patch "account"=> 'accounts#update'
+  put "account"=> 'accounts#update'
+
   mount ShopifyApp::Engine, at: '/'
  get "account"=> 'accounts#edit'
    patch "account"=> 'accounts#update'
@@ -19,6 +24,7 @@ Rails.application.routes.draw do
     end
     resources :variants
   end
+  resources :accounts
 
   resources :orders do
     collection do
